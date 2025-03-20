@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to June 30, 2026</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f7f6f3;
+            color: #37352f;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+        
+        .countdown-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            padding: 24px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2383e2;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+        
+        .countdown-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .time {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2383e2, #6a4ee1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+        
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            font-weight: 500;
+        }
+        
+        .target-date {
+            font-size: 0.9rem;
+            color: #6b6b6b;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #2383e2, #6a4ee1);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="title">Countdown to June 30, 2026</div>
+        <div class="countdown">
+            <div class="countdown-segment">
+                <div id="days" class="time">--</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="countdown-segment">
+                <div id="hours" class="time">--</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="countdown-segment">
+                <div id="minutes" class="time">--</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="countdown-segment">
+                <div id="seconds" class="time">--</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+        <div id="target-date" class="target-date">June 30, 2026</div>
+    </div>
+
+    <script>
+        // Set the target date: June 30, 2026
+        const targetDate = new Date('June 30, 2026 00:00:00').getTime();
+        const startDate = new Date('March 20, 2025 00:00:00').getTime();
+        const totalDuration = targetDate - startDate;
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            // Calculate progress percentage
+            const elapsed = now - startDate;
+            const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+            
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Display the result
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            // Update progress bar
+            document.getElementById('progress-bar').style.width = progressPercentage + '%';
+            
+            // If the countdown is over
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                document.getElementById('target-date').textContent = 'The date has arrived!';
+                document.getElementById('progress-bar').style.width = '100%';
+            }
+        }
+        
+        // Update the countdown every 1 second
+        updateCountdown();
+        const x = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
