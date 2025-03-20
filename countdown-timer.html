@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to June 30, 2026</title>
+    <title>Countdown with Custom Navigation Buttons</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f7f6f3;
-            color: #37352f;
+            /* Transparent background */
+            background-color: transparent;
+            color: #ffffff;
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 200px;
+            min-height: 300px;
         }
         
         .countdown-container {
-            background-color: white;
+            /* Transparent background */
+            background-color: transparent;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
             padding: 24px;
             width: 100%;
             max-width: 600px;
             text-align: center;
+            margin-bottom: 25px;
         }
         
         .title {
@@ -59,20 +61,20 @@
         .label {
             font-size: 0.8rem;
             text-transform: uppercase;
-            color: #6b6b6b;
+            color: #dddddd;
             font-weight: 500;
         }
         
         .target-date {
             font-size: 0.9rem;
-            color: #6b6b6b;
+            color: #dddddd;
             margin-top: 15px;
             font-style: italic;
         }
         
         .progress-container {
             width: 100%;
-            background-color: #f0f0f0;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             margin-top: 15px;
             overflow: hidden;
@@ -83,6 +85,116 @@
             background: linear-gradient(90deg, #2383e2, #6a4ee1);
             border-radius: 5px;
             transition: width 1s ease;
+        }
+        
+        /* Button Navigation Styles */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .nav-button {
+            position: relative;
+            width: calc(33% - 15px);
+            min-width: 150px;
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        @media (max-width: 800px) {
+            .nav-button {
+                width: calc(50% - 15px);
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .nav-button {
+                width: 100%;
+            }
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: rgba(40, 40, 40, 0.8);
+        }
+        
+        .nav-button:active {
+            transform: translateY(0);
+        }
+        
+        .button-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2383e2, #6a4ee1);
+        }
+        
+        .button-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .button-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        
+        .button-desc {
+            font-size: 0.8rem;
+            color: #bbbbbb;
+        }
+        
+        .setup-instructions {
+            margin-top: 30px;
+            background-color: rgba(30, 30, 30, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #dddddd;
+            border-left: 4px solid #2383e2;
+            backdrop-filter: blur(5px);
+        }
+        
+        .setup-instructions h3 {
+            margin-top: 0;
+            color: #2383e2;
+        }
+        
+        code {
+            background-color: rgba(60, 60, 60, 0.7);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85em;
+            color: #dddddd;
         }
     </style>
 </head>
@@ -111,6 +223,73 @@
             <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
         </div>
         <div id="target-date" class="target-date">June 30, 2026</div>
+    </div>
+    
+    <div class="nav-buttons">
+        <!-- Study Management -->
+        <div class="nav-button" onclick="redirectToPage('study')">
+            <div class="button-content">
+                <div class="button-icon">📚</div>
+                <div class="button-title">Study Management</div>
+                <div class="button-desc">Organize your learning materials</div>
+            </div>
+        </div>
+        
+        <!-- Task Management -->
+        <div class="nav-button" onclick="redirectToPage('task')">
+            <div class="button-content">
+                <div class="button-icon">✅</div>
+                <div class="button-title">Task Management</div>
+                <div class="button-desc">Track your to-dos and priorities</div>
+            </div>
+        </div>
+        
+        <!-- Time Management -->
+        <div class="nav-button" onclick="redirectToPage('time')">
+            <div class="button-content">
+                <div class="button-icon">⏱️</div>
+                <div class="button-title">Time Management</div>
+                <div class="button-desc">Schedule and track your hours</div>
+            </div>
+        </div>
+        
+        <!-- Book Management -->
+        <div class="nav-button" onclick="redirectToPage('book')">
+            <div class="button-content">
+                <div class="button-icon">📖</div>
+                <div class="button-title">Book Management</div>
+                <div class="button-desc">Track your reading and notes</div>
+            </div>
+        </div>
+        
+        <!-- Trading Management -->
+        <div class="nav-button" onclick="redirectToPage('trading')">
+            <div class="button-content">
+                <div class="button-icon">📈</div>
+                <div class="button-title">Trading Management</div>
+                <div class="button-desc">Monitor investments and trades</div>
+            </div>
+        </div>
+        
+        <!-- Project Management -->
+        <div class="nav-button" onclick="redirectToPage('project')">
+            <div class="button-content">
+                <div class="button-icon">🚀</div>
+                <div class="button-title">Project Management</div>
+                <div class="button-desc">Organize and track your projects</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="setup-instructions">
+        <h3>How to Set Up Page Redirects</h3>
+        <p>To make these buttons redirect to your Notion pages:</p>
+        <ol>
+            <li>Find the Notion page URLs you want to link to</li>
+            <li>Edit the <code>redirects</code> object in the JavaScript section below</li>
+            <li>Replace the example URLs with your actual Notion page URLs</li>
+        </ol>
+        <p>For example: <code>study: "https://www.notion.so/Your-Study-Page-ID"</code></p>
     </div>
 
     <script>
@@ -157,6 +336,41 @@
         // Update the countdown every 1 second
         updateCountdown();
         const x = setInterval(updateCountdown, 1000);
+        
+        // Redirect function for buttons
+        // REPLACE THESE URLS WITH YOUR ACTUAL NOTION PAGE URLS
+        const redirects = {
+            study: "https://www.notion.so/1bcf8aaa0caa80e0b620d96fb1f760a4?v=1bcf8aaa0caa8013b9d5000c3bc37dc4&pvs=4",
+            task: "https://www.notion.so/Task-management-1bcf8aaa0caa80db8059c4348d6a708f?pvs=4",
+            time: "https://www.notion.so/Time-Management-1bcf8aaa0caa80848236e9f63b01e597?pvs=4",
+            book: "https://www.notion.so/Book-Management-1bcf8aaa0caa80abae0ffe81d26d378e?pvs=4",
+            trading: "https://www.notion.so/Trading-Management-1bcf8aaa0caa8028bbf4d8c9bbe8f71a?pvs=4",
+            project: "https://www.notion.so/Project-Management-1bcf8aaa0caa803b9a1edc41771659d5?pvs=4"
+        };
+        
+        function redirectToPage(pageId) {
+            const url = redirects[pageId];
+            if (url) {
+                // For Notion, using parent.location ensures it works within the iframe
+                parent.location.href = url;
+            } else {
+                console.error("No URL defined for page: " + pageId);
+                alert("Page URL not configured. Please see setup instructions.");
+            }
+        }
+        
+        // Hide setup instructions after 30 seconds
+        setTimeout(function() {
+            const instructions = document.querySelector('.setup-instructions');
+            if (instructions) {
+                instructions.style.opacity = '0';
+                instructions.style.height = '0';
+                instructions.style.margin = '0';
+                instructions.style.padding = '0';
+                instructions.style.overflow = 'hidden';
+                instructions.style.transition = 'all 0.5s ease';
+            }
+        }, 30000);
     </script>
 </body>
 </html>
