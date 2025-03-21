@@ -336,29 +336,24 @@
         // Update the countdown every 1 second
         updateCountdown();
         const x = setInterval(updateCountdown, 1000);
-        
-        // Redirect function for buttons
-        // REPLACE THESE URLS WITH YOUR ACTUAL NOTION PAGE URLS
-        const redirects = {
-            study: "https://www.notion.so/1bcf8aaa0caa80e0b620d96fb1f760a4?v=1bcf8aaa0caa8013b9d5000c3bc37dc4&pvs=4",
-            task: "https://www.notion.so/Task-management-1bcf8aaa0caa80db8059c4348d6a708f?pvs=4",
-            time: "https://www.notion.so/Time-Management-1bcf8aaa0caa80848236e9f63b01e597?pvs=4",
-            book: "https://www.notion.so/Book-Management-1bcf8aaa0caa80abae0ffe81d26d378e?pvs=4",
-            trading: "https://www.notion.so/Trading-Management-1bcf8aaa0caa8028bbf4d8c9bbe8f71a?pvs=4",
-            project: "https://www.notion.so/Project-Management-1bcf8aaa0caa803b9a1edc41771659d5?pvs=4"
-        };
-        
-        function redirectToPage(pageId) {
-            const url = redirects[pageId];
-            if (url) {
-                // For Notion, using parent.location ensures it works within the iframe
-                parent.location.href = url;
+        // JavaScript function to handle button navigation
+        function redirectToPage(page) {
+            const redirects = {
+                study: "https://www.notion.so/1bcf8aaa0caa80e0b620d96fb1f760a4?v=1bcf8aaa0caa8013b9d5000c3bc37dc4&pvs=4",
+                task: "https://www.notion.so/Task-management-1bcf8aaa0caa80db8059c4348d6a708f?pvs=4",
+                time: "https://www.notion.so/Time-Management-1bcf8aaa0caa80848236e9f63b01e597?pvs=4",
+                book: "https://www.notion.so/Book-Management-1bcf8aaa0caa80abae0ffe81d26d378e?pvs=4",
+                trading: "https://www.notion.so/Trading-Management-1bcf8aaa0caa8028bbf4d8c9bbe8f71a?pvs=4",
+                project: "https://www.notion.so/Project-Management-1bcf8aaa0caa803b9a1edc41771659d5?pvs=4"
+            };
+            
+            // Redirect to the appropriate page based on the button clicked
+            if (redirects[page]) {
+                window.location.href = redirects[page];
             } else {
-                console.error("No URL defined for page: " + pageId);
-                alert("Page URL not configured. Please see setup instructions.");
+                alert('Page not found!');
             }
         }
-        
         // Hide setup instructions after 30 seconds
         setTimeout(function() {
             const instructions = document.querySelector('.setup-instructions');
@@ -371,6 +366,6 @@
                 instructions.style.transition = 'all 0.5s ease';
             }
         }, 30000);
-    </script>
+        </script>
 </body>
 </html>
